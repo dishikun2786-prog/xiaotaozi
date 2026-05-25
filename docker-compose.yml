@@ -1,0 +1,52 @@
+﻿version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: xiaotaozi
+      POSTGRES_USER: xiaotaozi
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-xiaotaozi_secret}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xiaotaozi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://xiaotaozi:${DB_PASSWORD:-xiaotaozi_secret}@postgres:5432/xiaotaozi
+      JWT_SECRET: ${JWT_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      PORT: 3000
+      NODE_ENV: production
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./server/data:/app/data
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./admin-ui/dist:/usr/share/nginx/html/admin:ro
+
+volumes:
+  pgdata:

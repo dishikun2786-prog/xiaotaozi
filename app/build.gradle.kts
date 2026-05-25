@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.roubao.autopilot"
+    namespace = "com.xiaotaozi.autopilot"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.roubao.autopilot"
+        applicationId = "com.xiaotaozi.autopilot"
         minSdk = 26
         targetSdk = 34
         versionCode = 7
@@ -86,6 +86,10 @@ dependencies {
 
     // JSON
     implementation("org.json:json:20231013")
+
+    // Retrofit + Gson (cloud API)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Firebase Crashlytics
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Name -->
-    <string name="app_name">肉包</string>
+    <string name="app_name">小桃子</string>
 
     <!-- Tab Titles -->
-    <string name="tab_home">肉包</string>
+    <string name="tab_home">小桃子</string>
     <string name="tab_history">记录</string>
     <string name="tab_settings">设置</string>
 
@@ -12,7 +12,7 @@
     <string name="home_ready">准备就绪，告诉我你想做什么</string>
     <string name="home_connect_shizuku">请先连接 Shizuku</string>
     <string name="home_try_these">试试这些指令</string>
-    <string name="home_input_placeholder">告诉肉包你想做什么…</string>
+    <string name="home_input_placeholder">告诉小桃子你想做什么…</string>
     <string name="home_executing">正在执行 Step %1$d</string>
     <string name="home_send">发送</string>
     <string name="home_stop">停止</string>
@@ -54,7 +54,7 @@
 
     <!-- Settings Screen -->
     <string name="settings_title">设置</string>
-    <string name="settings_subtitle">配置 API 和应用选项</string>
+    <string name="settings_subtitle">配置应用选项</string>
 
     <!-- Settings - Appearance -->
     <string name="settings_appearance">外观</string>
@@ -64,25 +64,14 @@
     <string name="theme_system">跟随系统</string>
     <string name="theme_select">选择主题</string>
 
-    <!-- Settings - API -->
-    <string name="settings_api">API 配置</string>
-    <string name="settings_provider">API 服务商</string>
-    <string name="settings_provider_custom">自定义</string>
-    <string name="settings_model">模型</string>
-    <string name="settings_api_key">API Key</string>
-    <string name="settings_api_key_set">已设置 (%1$s)</string>
-    <string name="settings_api_key_unset">未设置</string>
-    <string name="settings_api_key_hint">请输入您的 API Key</string>
-    <string name="settings_show">显示</string>
-    <string name="settings_hide">隐藏</string>
-
-    <!-- Settings - Custom Models -->
-    <string name="settings_custom_models">自定义模型</string>
-    <string name="settings_add_model">添加自定义模型</string>
-    <string name="settings_add_model_hint">添加其他支持的模型</string>
-    <string name="settings_model_name_hint">输入模型名称或 ID</string>
-    <string name="settings_model_name_example">例如: gpt-4-vision</string>
-    <string name="settings_select_model">选择模型</string>
+    <!-- Settings - Account -->
+    <string name="settings_account">账号</string>
+    <string name="settings_server_url">服务器地址</string>
+    <string name="settings_account_info">账号信息</string>
+    <string name="settings_activation_status">激活状态</string>
+    <string name="settings_activated">已激活</string>
+    <string name="settings_not_activated">未激活</string>
+    <string name="settings_logout">退出登录</string>
 
     <!-- Settings - Help -->
     <string name="settings_help">帮助</string>
@@ -94,7 +83,7 @@
     <!-- Settings - About -->
     <string name="settings_about">关于</string>
     <string name="settings_version">版本</string>
-    <string name="settings_app_desc">基于视觉语言模型的 Android 自动化工具</string>
+    <string name="settings_app_desc">基于视觉语言模型的 Android 自动化工具（云端版）</string>
 
     <!-- Shizuku Status -->
     <string name="shizuku_connected">Shizuku 已连接</string>
@@ -107,34 +96,48 @@
     <string name="shizuku_help_step1_desc">从 Google Play 或 GitHub 下载 Shizuku 应用\n\n• Google Play: 搜索 \"Shizuku\"\n• GitHub: github.com/RikkaApps/Shizuku</string>
     <string name="shizuku_help_step2_title">启动 Shizuku</string>
     <string name="shizuku_help_step2_desc">打开 Shizuku 应用，根据您的设备选择启动方式：\n\n• 无线调试（推荐）：需要 Android 11+，在开发者选项中开启无线调试\n• 连接电脑：通过 ADB 命令启动</string>
-    <string name="shizuku_help_step3_title">授权肉包</string>
-    <string name="shizuku_help_step3_desc">在 Shizuku 的「应用管理」中找到肉包 Autopilot，点击授权按钮</string>
+    <string name="shizuku_help_step3_title">授权小桃子</string>
+    <string name="shizuku_help_step3_desc">在 Shizuku 的「应用管理」中找到小桃子 Autopilot，点击授权按钮</string>
     <string name="shizuku_help_step4_title">开始使用</string>
-    <string name="shizuku_help_step4_desc">授权完成后，返回肉包应用，状态卡片会显示「Shizuku 已连接」</string>
+    <string name="shizuku_help_step4_desc">授权完成后，返回小桃子应用，状态卡片会显示「Shizuku 已连接」</string>
 
     <!-- Overlay Help -->
     <string name="overlay_why">为什么需要悬浮窗权限？</string>
-    <string name="overlay_reason">肉包在执行任务时需要显示悬浮窗来：</string>
+    <string name="overlay_reason">小桃子在执行任务时需要显示悬浮窗来：</string>
     <string name="overlay_feature1">显示当前执行进度</string>
     <string name="overlay_feature2">提供停止按钮，随时中断任务</string>
     <string name="overlay_feature3">在其他应用上方显示状态信息</string>
     <string name="overlay_how">如何开启？</string>
-    <string name="overlay_how_desc">1. 点击执行任务时会自动提示\n2. 或前往：设置 > 应用 > 肉包 > 悬浮窗权限\n3. 开启「允许显示在其他应用上层」</string>
+    <string name="overlay_how_desc">1. 点击执行任务时会自动提示\n2. 或前往：设置 > 应用 > 小桃子 > 悬浮窗权限\n3. 开启「允许显示在其他应用上层」</string>
     <string name="overlay_privacy">隐私安全</string>
     <string name="overlay_privacy_desc">悬浮窗仅在任务执行期间显示，不会收集任何个人信息。任务完成后悬浮窗会自动消失。</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_welcome">欢迎使用肉包</string>
-    <string name="onboarding_welcome_desc">肉包是一个智能自动化助手，\n可以帮你操作手机完成各种任务</string>
+    <string name="onboarding_welcome">欢迎使用小桃子</string>
+    <string name="onboarding_welcome_desc">小桃子是一个智能自动化助手，\n可以帮你操作手机完成各种任务</string>
     <string name="onboarding_ai">AI 驱动</string>
-    <string name="onboarding_ai_desc">基于先进的视觉语言模型，\n肉包能够理解屏幕内容并做出智能决策</string>
+    <string name="onboarding_ai_desc">基于先进的视觉语言模型，\n小桃子能够理解屏幕内容并做出智能决策</string>
     <string name="onboarding_easy">简单易用</string>
-    <string name="onboarding_easy_desc">只需用自然语言描述你想做的事，\n肉包会自动帮你完成</string>
+    <string name="onboarding_easy_desc">只需用自然语言描述你想做的事，\n小桃子会自动帮你完成</string>
     <string name="onboarding_safe">安全可靠</string>
     <string name="onboarding_safe_desc">遇到敏感页面（如支付、密码）会自动停止，\n保护你的账户安全</string>
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_start">开始使用</string>
+
+    <!-- Auth -->
+    <string name="auth_login">登录</string>
+    <string name="auth_register">注册</string>
+    <string name="auth_username">用户名</string>
+    <string name="auth_password">密码</string>
+    <string name="auth_confirm_password">确认密码</string>
+    <string name="auth_email">邮箱 (选填)</string>
+    <string name="auth_login_hint">已有账号？去登录</string>
+    <string name="auth_register_hint">没有账号？注册新用户</string>
+    <string name="auth_activation_title">激活账号</string>
+    <string name="auth_activation_hint">请输入 XTZ- 开头的卡密</string>
+    <string name="auth_activate_button">激活</string>
+    <string name="auth_logout">退出登录</string>
 
     <!-- Common -->
     <string name="btn_confirm">确定</string>
@@ -147,7 +150,6 @@
 
     <!-- Toast Messages -->
     <string name="toast_enter_instruction">请输入指令</string>
-    <string name="toast_enter_api_key">请输入 API Key</string>
     <string name="toast_grant_overlay">请授予悬浮窗权限</string>
     <string name="toast_shizuku_granted">Shizuku 权限已获取</string>
     <string name="toast_start_shizuku">请先启动 Shizuku App</string>
@@ -157,4 +159,7 @@
     <string name="toast_sensitive_page">检测到敏感页面（支付/密码），已安全停止</string>
     <string name="toast_max_steps">达到最大步数限制</string>
     <string name="toast_error">错误: %1$s</string>
+    <string name="toast_login_failed">登录失败</string>
+    <string name="toast_activation_failed">激活失败</string>
+    <string name="toast_not_activated">请先激活账号</string>
 </resources>

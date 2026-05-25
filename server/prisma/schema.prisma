@@ -1,0 +1,168 @@
+﻿generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ 管理员 ============
+model AdminUser {
+  id           String         @id @default(uuid())
+  username     String         @unique @db.VarChar(50)
+  passwordHash String         @db.VarChar(255)
+  displayName  String         @default("") @db.VarChar(100)
+  role         String         @default("admin") @db.VarChar(20)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  sessions     AdminSession[]
+
+  @@map("admin_users")
+}
+
+model AdminSession {
+  id          String    @id @default(uuid())
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+  token       String    @unique @db.VarChar(255)
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  lastUsedAt  DateTime  @updatedAt
+
+  @@index([adminUserId])
+  @@map("admin_sessions")
+}
+
+// ============ App 用户 ============
+model AppUser {
+  id           String           @id @default(uuid())
+  username     String           @unique @db.VarChar(50)
+  passwordHash String           @db.VarChar(255)
+  email        String?          @unique @db.VarChar(255)
+  isActivated  Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  lastLoginAt  DateTime?
+  activations  UserActivation[]
+  sessions     AppUserSession[]
+  deviceInfos  DeviceInfo[]
+  usageRecords UsageRecord[]
+
+  @@map("app_users")
+}
+
+// ============ 卡密 ============
+model CardKey {
+  id          String           @id @default(uuid())
+  codeHash    String           @unique @db.VarChar(64)
+  codePrefix  String           @db.VarChar(20)
+  codeLast4   String           @db.VarChar(4)
+  status      String           @default("unused") @db.VarChar(20)
+  type        String           @default("single") @db.VarChar(20)
+  maxUses     Int              @default(1)
+  currentUses Int              @default(0)
+  durationDays Int             @default(365)
+  batchId     String?          @db.VarChar(64)
+  notes       String           @default("") @db.Text
+  createdBy   String?          @db.VarChar(64)
+  createdAt   DateTime         @default(now())
+  expiresAt   DateTime?
+  usedAt      DateTime?
+  activations UserActivation[]
+
+  @@index([batchId])
+  @@index([status])
+  @@map("card_keys")
+}
+
+// ============ 用户激活记录 ============
+model UserActivation {
+  id          String    @id @default(uuid())
+  appUserId   String
+  appUser     AppUser   @relation(fields: [appUserId], references: [id], onDelete: Cascade)
+  cardKeyId   String
+  cardKey     CardKey   @relation(fields: [cardKeyId], references: [id])
+  activatedAt DateTime  @default(now())
+  expiresAt   DateTime
+  isActive    Boolean   @default(true)
+  revokedAt   DateTime?
+
+  @@index([appUserId])
+  @@map("user_activations")
+}
+
+// ============ App 用户会话 ============
+model AppUserSession {
+  id         String   @id @default(uuid())
+  appUserId  String
+  appUser    AppUser  @relation(fields: [appUserId], references: [id], onDelete: Cascade)
+  token      String   @unique @db.VarChar(255)
+  deviceId   String?  @db.VarChar(100)
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  lastUsedAt DateTime @updatedAt
+
+  @@index([appUserId])
+  @@map("app_user_sessions")
+}
+
+// ============ 设备信息 ============
+model DeviceInfo {
+  id             String   @id @default(uuid())
+  appUserId      String
+  appUser        AppUser  @relation(fields: [appUserId], references: [id], onDelete: Cascade)
+  deviceModel    String   @db.VarChar(100)
+  androidVersion String   @db.VarChar(10)
+  appVersion     String   @db.VarChar(20)
+  firstSeenAt    DateTime @default(now())
+  lastSeenAt     DateTime @updatedAt
+
+  @@index([appUserId])
+  @@map("device_infos")
+}
+
+// ============ VLM 提供商配置 ============
+model VlmProviderConfig {
+  id           String   @id @default(uuid())
+  name         String   @db.VarChar(100)
+  providerId   String   @unique @db.VarChar(50)
+  apiKey       String   @db.Text
+  baseUrl      String   @db.VarChar(500)
+  defaultModel String   @db.VarChar(100)
+  models       String   @default("[]") @db.Text
+  isGuiAgent   Boolean  @default(false)
+  isEnabled    Boolean  @default(true)
+  priority     Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("vlm_provider_configs")
+}
+
+// ============ 用量记录 ============
+model UsageRecord {
+  id           String   @id @default(uuid())
+  appUserId    String
+  appUser      AppUser  @relation(fields: [appUserId], references: [id], onDelete: Cascade)
+  providerId   String   @db.VarChar(50)
+  model        String   @db.VarChar(100)
+  requestType  String   @default("chat") @db.VarChar(20)
+  tokensUsed   Int      @default(0)
+  requestCount Int      @default(1)
+  createdAt    DateTime @default(now())
+
+  @@index([appUserId, createdAt])
+  @@map("usage_records")
+}
+
+// ============ 系统配置 ============
+model SystemConfig {
+  id          String   @id @default(uuid())
+  key         String   @unique @db.VarChar(100)
+  value       String   @db.Text
+  description String   @default("") @db.Text
+  updatedAt   DateTime @updatedAt
+
+  @@map("system_configs")
+}
